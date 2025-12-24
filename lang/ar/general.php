@@ -1,0 +1,20 @@
+<?php
+return [
+    'name' => 'الإسم',
+    'image' => 'الصورة',
+    'thumbnail' => 'الصورة المصغرة',
+    'parent_id' => 'القسم الرئيسي',
+    'status' => 'الحالة',
+    'created_at' => 'الإضافة',
+    'updated_at' => 'التعديل',
+    'active' => 'مفعل',
+    'inactive' => 'غير مفعل',
+    'status' => 'الحالة',
+    'created_at' => 'الإضافة',
+    'updated_at' => 'التعديل',
+    'item' => 'العنصر',
+    'status_updated' => ' تم تحديث الحالة بنجاح',
+    'category' => 'القسم',
+    'no_images' => 'لا يوجد صور متاحة',
+    'administration' => 'الإدارة',
+];

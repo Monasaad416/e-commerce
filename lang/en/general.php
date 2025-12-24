@@ -1,0 +1,20 @@
+<?php
+return [
+    'name' => 'Name',
+    'image' => 'Image',
+    'thumbnail' => 'Thumbnail',
+    'parent_id' => 'Parent',
+    'status' => 'Status',
+    'created_at' => 'Created At',
+    'updated_at' => 'Updated At',
+    'active' => 'Active',
+    'inactive' => 'Inactive',
+    'status' => 'Status',
+    'created_at' => 'Created At',
+    'updated_at' => 'Updated At',
+    'item' => 'Item',
+    'status_updated' => 'Status updated successfully',
+    'category' => 'Category',
+    'no_images' => 'No images available',
+    'administration' => 'Administration',
+];

@@ -1,0 +1,35 @@
+<?php
+
+return [
+
+    'category_id' => 'القسم',
+    'description' => 'الوصف',
+    'discount_price' => 'السعر بعد الخصم',
+    'is_active' => 'الحالة',
+    'is_featured' => 'المنتج المميز',
+    'meta_description' => 'الوصف',
+    'meta_keywords' => 'الكلمات المفتاحية',
+    'model_label' => 'منتج',
+    'name' => 'الإسم',
+    'navigation_label' => 'منتجات',
+    'plural_model_label' => 'منتجات',
+    'purchase_price' => 'سعر الشراء',
+    'qty' => 'الكمية',
+    'selling_price' => 'سعر البيع',
+    'short_description' => 'وصف قصير',
+    'sku' => 'الكود',
+    'slug' => 'الرابط',
+    'thumbnail' => 'الصورة المصغرة',
+    'updated_at' => 'التعديل',
+    'product_created_successfully' => 'تم إضافة منتج جديد بنجاح',
+    'product_updated_successfully' => 'تم تعديل المنتج بنجاح',
+    'basic_information' => 'المعلومات الأساسية',
+    'quantity_and_price' => 'الكمية والسعر',
+    'images' => 'الصور',
+    'image_gallery' => 'معرض الصور',
+    'extra_info' => 'معلومات إضافية',
+    'tags' => 'العلامات',
+    'attributes' => 'الخصائص',
+    'featured_image' => 'الصورة المميزة',
+
+];

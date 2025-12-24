@@ -1,0 +1,31 @@
+<?php
+
+return [
+
+    'category_id' => 'Category',
+    'description' => 'Description',
+    'discount_price' => 'Discount Price',
+    'is_active' => 'Is Active',
+    'is_featured' => 'Is Featured',
+    'meta_description' => 'Meta Description',
+    'meta_keywords' => 'Meta Keywords',
+    'model_label' => 'Product',
+    'name' => 'Name',
+    'navigation_label' => 'Products',
+    'plural_model_label' => 'Products',
+    'purchase_price' => 'Purchase Price',
+    'qty' => 'Qty',
+    'selling_price' => 'Selling Price',
+    'short_description' => 'Short Description',
+    'sku' => 'Sku',
+    'slug' => 'Slug',
+    'thumbnail' => 'Thumbnail',
+    'basic_information' => 'Basic Information',
+    'quantity_and_price' => 'Quantity and Price',
+    'images' => 'Images',
+    'image_gallery' => 'Image Gallery',
+    'extra_info' => 'Extra Information',
+    'tags' => 'Tags',
+    'attributes' => 'Attributes',
+    'featured_image' => 'Featured Image',
+];
