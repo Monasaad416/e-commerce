@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Spatie\Translatable\HasTranslations;
 
 class Product extends Model
 {
-    use HasTranslations;
+    use HasTranslations, SoftDeletes;
 
     public array $translatable = [
         'name',
@@ -44,10 +45,8 @@ class Product extends Model
         'meta_description',
         'description',
         'short_description',
+        'type',
     ];
-
-    
-
 
     protected static function booted()
     {
@@ -62,7 +61,6 @@ class Product extends Model
         });
     }
 
-
     public function images()
     {
         return $this->hasMany(ProductImage::class);
@@ -70,9 +68,11 @@ class Product extends Model
 
     public function primaryImage()
     {
-        return $this->hasOne(ProductImage::class)->where('is_primary', true);
+        return $this->hasOne(ProductImage::class)->where('is_primary', 1);
     }
 
+
+    
 
     public function category()
     {
@@ -85,40 +85,18 @@ class Product extends Model
     }
 
 
+
     public function productAttributeValues()
     {
-        return $this->belongsToMany(AttributeValue::class, 'product_attribute_values', 'product_id', 'attribute_value_id')
-                    ->withTimestamps();
+        return $this->hasMany(ProductAttributeValue::class);
     }
-    public function attributes()
+
+    public function productVariants()
     {
-        return $this->belongsToMany(Attribute::class, 'attribute_values')
-            ->withPivot('value')
-            ->withTimestamps();
+        return $this->hasMany(ProductVariant::class);
     }
+    
 
-//         public function attributes()
-//     {
-//         return $this->belongsToMany(Attribute::class, 'attribute', 'product_id', 'attribute_id');
-//     }
-
-// public function attributeValues()
-// {
-//     return $this->belongsToMany(AttributeValue::class, 'attribute_product', 'product_id', 'attribute_value_id')
-//                 ->withTimestamps();
-// }
-
-// public function attributes()
-// {
-//     return $this->hasManyThrough(
-//         Attribute::class,
-//         AttributeValue::class,
-//         'id', // Foreign key on attribute_values table
-//         'id', // Foreign key on attributes table
-//         'id', // Local key on products table
-//         'attribute_id' // Local key on attribute_values table
-//     )->distinct();
-// }
 
 
 }

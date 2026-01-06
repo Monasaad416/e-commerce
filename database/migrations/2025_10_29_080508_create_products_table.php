@@ -22,11 +22,11 @@ return new class extends Migration
             $table->json('description');
             $table->json('short_description');
             $table->string('sku')->unique()->nullable();//only for simple products if variableproducts sku saved in product_variants table
-            // $table->enum('type', ['simple', 'variable'])->default('simple');
+            $table->enum('type', ['simple', 'variable'])->default('simple');
             $table->string('thumbnail')->nullable();
-            $table->decimal('purchase_price', 10, 2);
-            $table->decimal('selling_price', 10, 2);
-            $table->decimal('qty', 10, 2)->default(0);
+            $table->decimal('purchase_price', 10, 2)->nullable();
+            $table->decimal('selling_price', 10, 2)->nullable();
+            $table->decimal('qty', 10, 2)->default(0)->nullable();
             $table->decimal('discount_price', 10, 2)->nullable();
             $table->string('slug')->unique();
             $table->boolean('is_active')->default(true);
@@ -35,6 +35,7 @@ return new class extends Migration
             $table->json('meta_description')->nullable();
             $table->index(['is_active', 'category_id']);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

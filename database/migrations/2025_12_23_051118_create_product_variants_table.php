@@ -16,8 +16,12 @@ return new class extends Migration
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->string('sku');
-            $table->decimal('price', 8, 2);
-            $table->decimal('cost_price', 8, 2);
+            $table->decimal('purchase_price', 8, 2);
+            $table->decimal('selling_price', 8, 2);
+            $table->decimal('discount_price', 8, 2);
+            $table->decimal('qty', 8, 2);
+            $table->boolean('is_active')->default(true);
+            $table->boolean('is_featured')->default(false);
             $table->timestamps();
         });
     }

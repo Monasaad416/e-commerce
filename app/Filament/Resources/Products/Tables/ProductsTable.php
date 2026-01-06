@@ -26,12 +26,26 @@ class ProductsTable
                     ->searchable(),
                 ImageColumn::make('primary_image')
                     ->label(__('general.image'))
-                ->getStateUsing(fn ($record) => 
-                    $record->primaryImage->image_url ?? asset('storage/No_Image_Available.jpg')
-                )
+                    ->getStateUsing(function ($record) {
+                        if ($record->type === 'variable') {
+                            // For variable products, find the first variant that has a primary image.
+                            $variantWithImage = $record->productVariants()->whereHas('variantImages', function ($query) {
+                                $query->where('product_variant_id','30')->where('is_primary', 1);
+                            })->first();
 
-                    ->height(60)
-                    ->width(60)
+                            // dd($variantWithImage);
+
+
+                            return $variantWithImage ? $variantWithImage->variantPrimaryImage->image_path : 'storage/No_Image_Available.jpg';
+                        } else {
+                            // For simple products, get the primary image directly.
+                            return $record->primaryImage?->image_path;
+                        }
+                    })
+
+                    ->extraImgAttributes(['class' => 'object-contain'])
+                    ->extraAttributes(['class' => 'object-contain'])
+                    ->defaultImageUrl(asset('storage/No_Image_Available.jpg'))
                     ->square(),
                     // ImageColumn::make('primaryImage.image_path')
                     // ->label(__('general.image'))

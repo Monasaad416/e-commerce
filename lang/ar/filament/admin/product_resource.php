@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     'category_id' => 'القسم',
     'description' => 'الوصف',
     'discount_price' => 'السعر بعد الخصم',
@@ -11,8 +10,8 @@ return [
     'meta_keywords' => 'الكلمات المفتاحية',
     'model_label' => 'منتج',
     'name' => 'الإسم',
-    'navigation_label' => 'منتجات',
-    'plural_model_label' => 'منتجات',
+    'navigation_label' => 'المنتجات',
+    'plural_model_label' => 'المنتجات',
     'purchase_price' => 'سعر الشراء',
     'qty' => 'الكمية',
     'selling_price' => 'سعر البيع',
@@ -31,5 +30,27 @@ return [
     'tags' => 'العلامات',
     'attributes' => 'الخصائص',
     'featured_image' => 'الصورة المميزة',
+    'add_attribute' => 'إضافة خاصية',
+    'tags_and_attributes' => 'العلامات والخصائص',
+    'attribute' => 'الخاصية',
+    'values' => 'القيم',
+    'value' => 'القيمة',
+    'product_information' => 'معلومات المنتج',
+    'product_attributes' => 'خصائص المنتج',
+    'product_values' => 'قيم المنتج',
+    'variants' => 'المتغيرات',
+    'add_variant' => 'إضافة متغير',
+    'type' => 'النوع',
+    'simple' => 'بسيط',
+    'variable' => 'متغير',
+    'is_active' => 'الحالة',
+    'is_featured' => 'المنتج المميز',
+    'primary_image' => 'الصورة المميزة',
+    'variant_images' => 'صور المتغير',
+    'add_variant_image' => 'إضافة صورة للمتغير',
+    'edit_variant_image' => 'تعديل صورة المتغير',
+    'variation_primary_image' => 'الصورة المميزة للمتغير',
+    'variation_image_gallery' => 'معرض صور المتغير',
+
 
 ];

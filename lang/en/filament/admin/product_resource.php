@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     'category_id' => 'Category',
     'description' => 'Description',
     'discount_price' => 'Discount Price',
@@ -20,6 +19,9 @@ return [
     'sku' => 'Sku',
     'slug' => 'Slug',
     'thumbnail' => 'Thumbnail',
+    'updated_at' => 'Updated At',
+    'product_created_successfully' => 'Product Created Successfully',
+    'product_updated_successfully' => 'Product Updated Successfully',
     'basic_information' => 'Basic Information',
     'quantity_and_price' => 'Quantity and Price',
     'images' => 'Images',
@@ -28,4 +30,25 @@ return [
     'tags' => 'Tags',
     'attributes' => 'Attributes',
     'featured_image' => 'Featured Image',
+    'add_attribute' => 'Add Attribute',
+    'tags_and_attributes' => 'Tags and Attributes',
+    'attribute' => 'Attribute',
+    'values' => 'Values',
+    'value' => 'Value',
+    'product_information' => 'Product Information',
+    'product_attributes' => 'Product Attributes',
+    'product_values' => 'Product Values',
+    'variants' => 'Variants',
+    'add_variant' => 'Add Variant',
+    'type' => 'Type',
+    'simple' => 'Simple',
+    'variable' => 'Variable',
+    'is_active' => 'Is Active',
+    'is_featured' => 'Is Featured',
+    'primary_image' => 'Featured Image',
+    'variant_images' => 'Variant Images',
+    'add_variant_image' => 'Add Variant Image',
+    'edit_variant_image' => 'Edit Variant Image',
+    'variation_primary_image' => 'Variation Primary Image',
+    'variation_image_gallery' => 'Variation Image Gallery',
 ];

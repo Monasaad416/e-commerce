@@ -17,6 +17,9 @@ return [
     'shipping_status' => 'حالة الشحن',
     'created_at' => 'تاريخ الإنشاء',
     'updated_at' => 'تاريخ التحديث',
+    'model_label' => 'طلب',
+    'navigation_label' => 'الطلبات',
+    'plural_model_label' => 'الطلبات',
     
 
 ];

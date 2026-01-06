@@ -29,4 +29,10 @@ class AttributeValue extends Model
     {
         return $this->belongsTo(Attribute::class);
     }
+
+    public function productAttributeValues()
+    {
+        return $this->belongsToMany(Product::class, 'product_attribute_values', 'product_id', 'attribute_value_id')
+            ->withTimestamps();
+    }
 }

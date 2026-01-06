@@ -6,6 +6,8 @@ use App\Filament\Resources\Products\Pages\CreateProduct;
 use App\Filament\Resources\Products\Pages\EditProduct;
 use App\Filament\Resources\Products\Pages\ListProducts;
 use App\Filament\Resources\Products\Pages\ViewProduct;
+use App\Filament\Resources\Products\RelationManagers\ProductAttributeValuesRelationManager;
+use App\Filament\Resources\Products\RelationManagers\ProductVariantsRelationManager;
 use App\Filament\Resources\Products\Schemas\ProductForm;
 use App\Filament\Resources\Products\Tables\ProductsTable;
 use App\Models\Product;
@@ -26,7 +28,7 @@ class ProductResource extends Resource
 {
     protected static ?string $model = Product::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentText;
 
     protected static ?string $recordTitleAttribute = 'name';
 
@@ -47,7 +49,7 @@ class ProductResource extends Resource
             /* ===============================
             |  Product Info
             =============================== */
-            Section::make(__('Product Information'))
+            Section::make(__('filament/admin/product_resource.product_information'))
                 ->schema([
                     Grid::make(3)
                         ->schema([
@@ -129,7 +131,7 @@ class ProductResource extends Resource
                 ->collapsed(false),
                     
                 // Image Gallery Section
-                Section::make('Product Images')
+                Section::make(__('filament/admin/product_resource.image_gallery'))
                     ->collapsible()
                     ->columnSpanFull()
                     ->schema([
@@ -160,7 +162,7 @@ class ProductResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            ProductVariantsRelationManager::class,
         ];
     }
 

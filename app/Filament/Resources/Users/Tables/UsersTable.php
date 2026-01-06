@@ -39,7 +39,6 @@ class UsersTable
             ])
             ->recordActions([
                 ViewAction::make(),
-                EditAction::make(),
                 DeleteAction::make()
                     ->modalHeading(__('filament/admin/user_resource.delete_user'))
                     ->successNotification(

@@ -18,23 +18,6 @@ class Attribute extends Model
         return $this->hasMany(AttributeValue::class);
     }
 
-    // public function values()
-    // {
-    //     return $this->hasMany(AttributeValue::class);
-    // }
-
-    // public function products()
-    // {
-    //     return $this->hasManyThrough(
-    //         Product::class,
-    //         AttributeValue::class,
-    //         'attribute_id',
-    //         'id',
-    //         'id',
-    //         'product_id'
-    //     )->distinct();
-    // }
-
 
     public function values()
     {

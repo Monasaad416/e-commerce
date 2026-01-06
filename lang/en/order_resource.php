@@ -17,6 +17,9 @@ return [
     'shipping_status' => 'Shipping Status',
     'created_at' => 'Created At',
     'updated_at' => 'Updated At',
+    'model_label' => 'Order',
+    'navigation_label' => 'Orders', 
+    'plural_model_label' => 'Orders',
     
 
 ];

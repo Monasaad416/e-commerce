@@ -57,4 +57,14 @@ class TaxResource extends Resource
             'edit' => EditTax::route('/{record}/edit'),
         ];
     }
+
+    public static function getModelLabel(): string
+    {
+        return __('filament/admin/tax_resource.model_label');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('filament/admin/tax_resource.plural_model_label');
+    }
 }

@@ -12,6 +12,10 @@ class ProductImage extends Model
         'is_primary'
     ];
 
+    protected $casts = [
+        'is_primary' => 'boolean',
+    ];
+
 
 protected $appends = ['image_url'];
 

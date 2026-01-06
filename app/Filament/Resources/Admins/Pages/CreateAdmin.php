@@ -9,6 +9,7 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateAdmin extends CreateRecord
 {
     protected static string $resource = AdminResource::class;
+    protected static bool $canCreateAnother = false;
 
 
     protected function getCreatedNotification(): ?Notification
