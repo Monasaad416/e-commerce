@@ -1,6 +1,7 @@
 <?php
 return [
     'name' => 'الإسم',
+    'description' => 'الوصف',
     'image' => 'الصورة',
     'thumbnail' => 'الصورة المصغرة',
     'parent_id' => 'القسم الرئيسي',
@@ -17,4 +18,8 @@ return [
     'category' => 'القسم',
     'no_images' => 'لا يوجد صور متاحة',
     'administration' => 'الإدارة',
+    'revenue' => 'الإيرادات',
+    'orders' => 'الطلبات',
+    'customers' => 'العملاء',
+    'pending_orders' => 'الطلبات المعلقة',
 ];

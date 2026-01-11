@@ -8,6 +8,7 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\ViewAction;
 use Filament\Resources\Pages\EditRecord;
 use Filament\Notifications\Notification;
+use Illuminate\Container\Attributes\Storage;
 
 class EditProduct extends EditRecord
 {
@@ -25,7 +26,7 @@ class EditProduct extends EditRecord
     protected function getSavedNotification(): ?Notification
     {
         return Notification::make()
-            ->title(__('filament/admin/product_resource.product_edited_successfully'))
+            ->title(__('filament/admin/product_resource.product_updated_successfully'))
             ->success()
             ->color('success') 
             ->send();
@@ -33,7 +34,25 @@ class EditProduct extends EditRecord
 
     protected function mutateFormDataBeforeFill(array $data): array
     {
+
         if (($data['type'] ?? 'simple') !== 'variable') {
+                $product = $this->record->load(['primaryImage', 'images']);
+
+                
+                // Add primary image path if it exists
+                if ($product->primaryImage) {
+                    $data['primaryImage'] = $product->primaryImage->image_path;
+                }
+                            
+                // Add gallery images if they exist
+                $galleryImages = $product->images
+                    ->where('is_primary', false)
+                    ->pluck('image_path')
+                    ->toArray();
+                
+                if (!empty($galleryImages)) {
+                    $data['galleryImages'] = $galleryImages;
+                }
             return $data;
         }
 
@@ -59,7 +78,6 @@ class EditProduct extends EditRecord
                 ];
             })
             ->toArray();
-
         return $data;
     }
 
@@ -67,6 +85,51 @@ class EditProduct extends EditRecord
     protected function afterSave(): void
     {
         $product = $this->record;
+
+        // $formData = $this->form->getState(); 
+        // //dd($formData);
+
+        
+        // // Handle primary image
+        // if (array_key_exists('primaryImage', $formData)) {
+
+        //         $newImage = $formData['primaryImage']; // null | string | array
+        //         //dd($newImage);
+
+        //         // CASE 1: User removed the image
+        //         if (empty($newImage)) {
+        //             if ($product->primaryImage) {
+        //                 Storage::disk('public')->delete($product->primaryImage->image_path);
+        //                 $product->primaryImage->delete();
+        //             }
+
+        //             return;
+        //         }
+
+        //         // Normalize path (remove full URL if exists)
+        //         $newImagePath = str_replace(asset('storage/') , '', $newImage);
+
+        //         // CASE 2: New image uploaded (different from old)
+        //         if (
+        //             !$product->primaryImage ||
+        //             $product->primaryImage->image_path !== $newImagePath
+        //         ) {
+        //             // Delete old image ONLY if a new one exists
+        //             if ($product->primaryImage) {
+        //                 Storage::disk('public')->delete($product->primaryImage->image_path);
+        //             }
+
+        //             $product->primaryImage()->updateOrCreate(
+        //                 ['is_primary' => true],
+        //                 ['image_path' => $newImagePath]
+        //             );
+        //         }
+        //     }
+
+        //     // Handle gallery images
+        //     if (isset($formData['galleryImages']) && is_array($formData['galleryImages'])) {
+        //         // Rest of your gallery images handling code...
+        //     }
 
         if ($product->type !== 'variable') {
             return;
@@ -130,6 +193,8 @@ class EditProduct extends EditRecord
         $product->productVariants()
             ->whereNotIn('id', $submittedVariantIds)
             ->delete();
+
+
     }
 
 

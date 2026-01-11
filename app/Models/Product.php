@@ -37,7 +37,6 @@ class Product extends Model
         'selling_price',
         'qty',
         'discount_price',
-        'img',
         'thumbnail',
         'is_active',
         'is_featured',

@@ -1,6 +1,7 @@
 <?php
 return [
     'name' => 'Name',
+    'description' => 'Description',
     'image' => 'Image',
     'thumbnail' => 'Thumbnail',
     'parent_id' => 'Parent',
@@ -17,4 +18,8 @@ return [
     'category' => 'Category',
     'no_images' => 'No images available',
     'administration' => 'Administration',
+    'revenue' => 'Revenue',
+    'orders' => 'Orders',
+    'customers' => 'Customers',
+    'pending_orders' => 'Pending Orders',
 ];

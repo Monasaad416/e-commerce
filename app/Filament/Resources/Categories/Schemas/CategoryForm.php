@@ -28,9 +28,18 @@ class CategoryForm
                     ->translatableTabs(),
 
                 FileUpload::make('img')
-                ->label(fn () => app()->getLocale() === 'ar' ? 'الصورة' : 'Image'),
+                    ->label(fn () => app()->getLocale() === 'ar' ? 'الصورة' : 'Image')
+                    ->disk('public')
+                    ->directory('categories')
+                    ->image()
+                    ->openable()
+                    ->preserveFilenames(),
                 FileUpload::make('thumbnail')
-                ->label(fn () => app()->getLocale() === 'ar' ? 'الصورة المصغرة' : 'Thumbnail'),
+                    ->image()
+                    ->openable()
+                    ->label(fn () => app()->getLocale() === 'ar' ? 'الصورة المصغرة' : 'Thumbnail')
+                    ->disk('public')
+                    ->directory('categories'),
                 TagsInput::make('meta_keywords')
                 ->label(fn () => app()->getLocale() === 'ar' ? 'الكلمات المفتاحية' : 'Meta Keywords'),
                 TagsInput::make('meta_description')

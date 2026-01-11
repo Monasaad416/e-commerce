@@ -26,18 +26,16 @@ class CategoriesTable
                     ->searchable(),
                 ImageColumn::make('img')
                     ->label(__('general.image'))
+                    ->disk('public') 
                     ->getStateUsing(fn ($record) =>
-                        $record->img
-                            ?  $record->img
-                            : asset('storage/No_Image_Available.jpg')
-                    ),
-                ImageColumn::make('thumbnail')
+                        asset('storage/' . ($record->img ?: 'No_Image_Available.jpg'))
+                ),
+                  ImageColumn::make('thumbnail')
                     ->label(__('general.thumbnail'))
+                    ->disk('public') 
                     ->getStateUsing(fn ($record) =>
-                        $record->thumbnail
-                            ?  $record->thumbnail
-                            : asset('storage/No_Image_Available.jpg')
-                    ),
+                        asset('storage/' . ($record->thumbnail ?: 'No_Image_Available.jpg'))
+                ),
                 TextColumn::make('parent_id')
                     ->label(__('general.parent_id'))
                     ->numeric()

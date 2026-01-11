@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\Repeater;
 use Filament\Schemas\Components\Wizard;
 use Filament\Support\Icons\Heroicon;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\HtmlString;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Illuminate\Support\Str;
@@ -245,14 +246,27 @@ class ProductForm
                                         ->schema([
                                             Grid::make(2)
                                                 ->schema([
-                                                    // For primary image
                                                     FileUpload::make('primaryImage')
-                                                        ->label(__('Primary Image'))
                                                         ->image()
                                                         ->disk('public')
                                                         ->directory('products')
-                                                        ->required()
-                                                        ->maxSize(10240),
+                                                        ->maxSize(10240)
+                                                        ->preserveFilenames()
+                                                        ->afterStateHydrated(function ($component, $record) {
+                                                            if ($record->primaryImage) {
+                                                                $component->state($record->primaryImage->image_path);
+                                                            }
+                                                        })
+                                                        ->afterStateUpdated(function ($state, $record) {
+
+                                                            if (!$state) {
+                                                                return;
+                                                            }
+                                                            $record->primaryImage()->updateOrCreate(
+                                                                ['is_primary' => true],
+                                                                ['image_path' => $state]
+                                                            );
+                                                        }),
 
                                                     FileUpload::make('galleryImages')
                                                         ->label(__('Gallery'))
@@ -260,7 +274,67 @@ class ProductForm
                                                         ->multiple()
                                                         ->disk('public')
                                                         ->directory('products')
-                                                        ->maxSize(10240),
+                                                        ->maxSize(10240)
+                                                        ->preserveFilenames()
+                                                        ->imageEditor()
+                                                        ->openable()
+                                                        ->downloadable()
+                                                        ->dehydrated(false) 
+                                                        ->afterStateHydrated(function ($component, $record) {
+                                                            // Load existing gallery images
+                                                            if ($record->images->count()) {
+                                                                $component->state(
+                                                                    $record->images
+                                                                        ->where('is_primary', false)
+                                                                        ->pluck('image_path')
+                                                                        ->values()
+                                                                        ->toArray()
+                                                                );
+                                                            }
+                                                        })
+                                                        ->afterStateUpdated(function ($state, $record) {
+
+                                                            if (!is_array($state)) {
+                                                                return;
+                                                            }
+
+                                                            // Existing images from DB
+                                                            $existingImages = $record->images
+                                                                ->where('is_primary', false)
+                                                                ->pluck('image_path')
+                                                                ->toArray();
+
+                                                            // New state images
+                                                            $newImages = $state;
+
+                                                            /*
+                                                            |--------------------------------------------------------------------------
+                                                            | DELETE REMOVED IMAGES
+                                                            |--------------------------------------------------------------------------
+                                                            */
+                                                            $removedImages = array_diff($existingImages, $newImages);
+
+                                                            foreach ($removedImages as $removed) {
+                                                                Storage::disk('public')->delete($removed);
+                                                                $record->images()
+                                                                    ->where('image_path', $removed)
+                                                                    ->delete();
+                                                            }
+
+                                                            /*
+                                                            |--------------------------------------------------------------------------
+                                                            | ADD NEW IMAGES
+                                                            |--------------------------------------------------------------------------
+                                                            */
+                                                            $addedImages = array_diff($newImages, $existingImages);
+
+                                                            foreach ($addedImages as $added) {
+                                                                $record->images()->create([
+                                                                    'image_path' => $added,
+                                                                    'is_primary' => false,
+                                                                ]);
+                                                            }
+                                                        }),
 
 
                                                     ])

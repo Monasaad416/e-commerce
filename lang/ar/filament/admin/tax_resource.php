@@ -2,16 +2,12 @@
 
 return [
     'model_label' => 'الضريبة',
-    'name' => 'الاسم',
     'navigation_label' => 'الضرائب',
     'parent_id' => 'الضريبة الرئيسي',
     'plural_model_label' => 'الضرائب',
-    'slug' => 'الرابط',
-    'thumbnail' => 'الصورة المصغرة',
-    'updated_at' => 'التعديل',
     'tax_created_successfully' => 'تم إضافة ضريبة جديدة بنجاح',
     'tax_updated_successfully' => 'تم تعديل الضريبة بنجاح',
-    'create' => 'إضافة قسم',
+    'create' => 'إضافة ضريبة',
     'edit' => 'تعديل :label',
     'view' => 'عرض :label',
     'delete' => 'حذف',

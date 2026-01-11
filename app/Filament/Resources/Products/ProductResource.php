@@ -6,7 +6,6 @@ use App\Filament\Resources\Products\Pages\CreateProduct;
 use App\Filament\Resources\Products\Pages\EditProduct;
 use App\Filament\Resources\Products\Pages\ListProducts;
 use App\Filament\Resources\Products\Pages\ViewProduct;
-use App\Filament\Resources\Products\RelationManagers\ProductAttributeValuesRelationManager;
 use App\Filament\Resources\Products\RelationManagers\ProductVariantsRelationManager;
 use App\Filament\Resources\Products\Schemas\ProductForm;
 use App\Filament\Resources\Products\Tables\ProductsTable;
@@ -19,9 +18,7 @@ use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-use Filament\Infolists\Infolist;
 use Filament\Schemas\Components\Grid;
 
 class ProductResource extends Resource
@@ -138,19 +135,24 @@ class ProductResource extends Resource
                         ViewEntry::make('images')
                             ->view('filament.infolists.components.image-gallery')
                             ->getStateUsing(function ($record) {
-                                $record->loadMissing('images');
+                                $images = collect();
+
+                                if ($record->type === 'simple') {
+                                    $record->loadMissing('images');
+                                    $images = $record->images;
+                                } elseif ($record->type === 'variable') {
+                                    $record->loadMissing('productVariants.variantImages');
+                                    $images = $record->productVariants->flatMap(fn ($variant) => $variant->variantImages);
+                                }
+
                                 return [
-                                    'images' => $record->images->map(fn ($image) => [
+                                    'images' => $images->map(fn ($image) => [
                                         'url' => Storage::url($image->image_path),
                                         'is_primary' => $image->is_primary ?? false,
                                     ])->toArray(),
-
-                                    'debug' => true,
                                 ];
                             })
                             ->columnSpanFull()
-    
-
                     ])
             ]);
     }

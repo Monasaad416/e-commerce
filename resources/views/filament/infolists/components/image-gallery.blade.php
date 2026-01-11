@@ -18,7 +18,7 @@
                     onerror="this.onerror=null; this.src='{{ asset('images/placeholder.jpg') }}'"
                 >
                 @if($image['is_primary'] ?? false)
-                    <span style="position: absolute; top: 0.5rem; right: 0.5rem; background-color: #3b82f6; color: white; font-size: 0.75rem; padding: 0.25rem 0.5rem; border-radius: 9999px;">
+                    <span style="position: absolute; top: 0.5rem; right: 0.5rem; background-color: #3b82f6; color: white; font-size: 0.95rem; margin-bottom:0.5rem padding: 0.25rem 0.5rem; border-radius: 9999px;">
                         {{ __('filament/admin/product_resource.featured_image') }}
                     </span>
                 @endif
