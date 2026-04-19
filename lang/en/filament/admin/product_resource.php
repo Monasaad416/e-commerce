@@ -51,4 +51,6 @@ return [
     'edit_variant_image' => 'Edit Variant Image',
     'variation_primary_image' => 'Variation Primary Image',
     'variation_image_gallery' => 'Variation Image Gallery',
+    'products_retrieved_successfully' => 'Products Retrieved Successfully',
+    'product_retrieved_successfully' => 'Product Retrieved Successfully',
 ];

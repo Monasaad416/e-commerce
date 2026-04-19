@@ -10,9 +10,6 @@ return [
     'updated_at' => 'Updated At',
     'active' => 'Active',
     'inactive' => 'Inactive',
-    'status' => 'Status',
-    'created_at' => 'Created At',
-    'updated_at' => 'Updated At',
     'item' => 'Item',
     'status_updated' => 'Status updated successfully',
     'category' => 'Category',
@@ -22,4 +19,8 @@ return [
     'orders' => 'Orders',
     'customers' => 'Customers',
     'pending_orders' => 'Pending Orders',
+    'pages_content' => 'Page Contents',
+    'request_sent_successfully'=>'Request sent successfully',
+    'an_error_occurred'=>'An error occurred',
+
 ];

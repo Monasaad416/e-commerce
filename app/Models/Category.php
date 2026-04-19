@@ -16,7 +16,7 @@ class Category extends Model implements HasMedia
     use HasFactory;
     use HasTranslations;
 
-    public array $translatable = ['name','slug','description','meta_keywords','meta_description'];
+    public array $translatable = ['name', 'description', 'meta_keywords', 'meta_description'];
 
     protected $fillable = [
         'name',
@@ -34,13 +34,33 @@ class Category extends Model implements HasMedia
     {
         static::creating(function ($model) {
             if (empty($model->slug)) {
-                $name = is_array($model->name)
-                    ? ($model->name['en'] ?? collect($model->name)->first())
-                    : $model->name;
+                // Get the English name if available, otherwise any available name
+                $name = $model->getTranslation('name', 'en', false) ?: $model->name;
+
+                // If name is still an array, get the first available value
+                if (is_array($name)) {
+                    $name = $name['en'] ?? collect($name)->first() ?? '';
+                }
 
                 $model->slug = Str::slug($name);
             }
         });
+
+
+            static::saving(function ($model) {
+                // Get English name from translation
+                $name = $model->getTranslation('name', 'en', false) ?: $model->name;
+
+                // If name is an array for some reason, pick the 'en' value or first value
+                if (is_array($name)) {
+                    $name = $name['en'] ?? collect($name)->first() ?? '';
+                }
+
+                // Generate slug from English name
+                $model->slug = Str::slug($name);
+            });
+
+
     }
 
 

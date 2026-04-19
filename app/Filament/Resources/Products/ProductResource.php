@@ -25,7 +25,7 @@ class ProductResource extends Resource
 {
     protected static ?string $model = Product::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentText;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentDuplicate;
 
     protected static ?string $recordTitleAttribute = 'name';
 
@@ -148,7 +148,7 @@ class ProductResource extends Resource
                                 return [
                                     'images' => $images->map(fn ($image) => [
                                         'url' => Storage::url($image->image_path),
-                                        'is_primary' => $image->is_primary ?? false,
+                                        'is_featured' => $image->is_featured ?? false,
                                     ])->toArray(),
                                 ];
                             })

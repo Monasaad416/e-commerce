@@ -20,6 +20,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\VariantAttributeValue;
 use Filament\Forms\Components\Toggle;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 
 class ProductVariantsRelationManager extends RelationManager
@@ -116,11 +117,10 @@ class ProductVariantsRelationManager extends RelationManager
                 ImageColumn::make('variant_image')
                     ->label(__('general.image'))
                 ->getStateUsing(fn ($record) => 
-                    $record->variantImages->first()?->image_path ?? asset('storage/No_Image_Available.jpg')
+                    asset('storage/' . $record->variantPrimaryImage?->image_path) ?? asset('storage/No_Image_Available.jpg')
                 )
-
-                    ->extraImgAttributes(['class' => 'object-contain'])
-                    ->square(),
+                ->extraImgAttributes(['class' => 'object-contain'])
+                ->square(),
                 TextColumn::make('sku')
                     ->label(__('filament/admin/product_resource.sku'))
                     ->searchable(),
@@ -136,32 +136,32 @@ class ProductVariantsRelationManager extends RelationManager
                 TextColumn::make('discount_price')
                     ->label(__('filament/admin/product_resource.discount_price'))
                     ->searchable(),
-                TextColumn::make('is_active')
+                IconColumn::make('is_active')
                     ->label(__('filament/admin/product_resource.is_active'))
-                    ->searchable(),
-                TextColumn::make('is_featured')
+                    ->boolean(),
+                IconColumn::make('is_featured')
                     ->label(__('filament/admin/product_resource.is_featured'))
-                    ->searchable(),
+                    ->boolean(),
             ])
             ->filters([
                 //
             ])
             ->headerActions([
-                CreateAction::make()
-                    ->modelLabel('Variant')
-                    ->mutateFormDataUsing(function (array $data): array {
-                        $data['product_id'] = $this->getOwnerRecord()->id;
-                        return $data;
-                    })
-                    ->using(function (array $data, string $model): Model {
-                        return $this->getOwnerRecord()->productVariants()->create($data);
-                    }),
+                // CreateAction::make()
+                //     ->modelLabel('Variant')
+                //     ->mutateFormDataUsing(function (array $data): array {
+                //         $data['product_id'] = $this->getOwnerRecord()->id;
+                //         return $data;
+                //     })
+                //     ->using(function (array $data, string $model): Model {
+                //         return $this->getOwnerRecord()->productVariants()->create($data);
+                //     }),
             ])
             ->recordActions([
-                ViewAction::make(),
-                EditAction::make(),
-                // DissociateAction::make(),
-                DeleteAction::make(),
+                // ViewAction::make(),
+                // EditAction::make(),
+                // // DissociateAction::make(),
+                // DeleteAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

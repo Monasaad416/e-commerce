@@ -9,11 +9,11 @@ class ProductImage extends Model
     protected $fillable = [
         'product_id',
         'image_path',
-        'is_primary'
+        'is_featured'
     ];
 
     protected $casts = [
-        'is_primary' => 'boolean',
+        'is_featured' => 'boolean',
     ];
 
 

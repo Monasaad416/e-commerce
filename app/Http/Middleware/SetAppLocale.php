@@ -5,13 +5,17 @@ namespace App\Http\Middleware;
 use App\Models\Language;
 use Closure;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Cache;
 
 class SetAppLocale
 {
     public function handle($request, Closure $next)
     {
-        $locale = $request->route('lang') ?? Language::where('is_default', 1)->value('code');
+        $defaultLocale = Cache::remember('default_language_code', 3600, static function (): ?string {
+            return Language::where('is_default', 1)->value('code');
+        });
+
+        $locale = $request->route('locale') ?? $defaultLocale ?? config('app.locale', 'en');
 
         $language = Language::where('code', $locale)->first();
 
@@ -23,7 +27,7 @@ class SetAppLocale
         App::setLocale($locale);
 
 
-        Session::put('lang_id', $language->id);
+        //Session::put('lang_id', $language->id);
 
         return $next($request);
     }

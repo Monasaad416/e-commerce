@@ -22,7 +22,11 @@ class ProductsTable
             ->query(
                 Product::query()->with(['images','primaryImage', 'productVariants.variantPrimaryImage'])
             )
+            ->defaultSort('created_at', 'desc')
             ->columns([
+                TextColumn::make('name')
+                    ->label(__('filament/admin/product_resource.name'))
+                    ->sortable(),
                 TextColumn::make('category.name')
                     ->label(__('filament/admin/product_resource.category_id'))
                     ->sortable(),
@@ -32,6 +36,7 @@ class ProductsTable
          
 
                 ImageColumn::make('primary_image')
+                    ->label(__('filament/admin/product_resource.primary_image'))
                     ->disk('public') 
                     ->getStateUsing(function ($record) {
 
@@ -52,24 +57,23 @@ class ProductsTable
                         }
 
                     })
-                    ->square(),
-                        
-                TextColumn::make('purchase_price')
-                    ->label(__('filament/admin/product_resource.purchase_price'))
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('selling_price')
-                    ->label(__('filament/admin/product_resource.selling_price'))
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('qty')
-                    ->label(__('filament/admin/product_resource.qty'))
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('discount_price')
-                    ->label(__('filament/admin/product_resource.discount_price'))
-                    ->numeric()
-                    ->sortable(),
+                    ->square(),       
+                // TextColumn::make('purchase_price')
+                //     ->label(__('filament/admin/product_resource.purchase_price'))
+                //     ->numeric()
+                //     ->sortable(),
+                // TextColumn::make('selling_price')
+                //     ->label(__('filament/admin/product_resource.selling_price'))
+                //     ->numeric()
+                //     ->sortable(),
+                // TextColumn::make('qty')
+                //     ->label(__('filament/admin/product_resource.qty'))
+                //     ->numeric()
+                //     ->sortable(),
+                // TextColumn::make('discount_price')
+                //     ->label(__('filament/admin/product_resource.discount_price'))
+                //     ->numeric()
+                //     ->sortable(),
 
                 IconColumn::make('is_active')
                     ->label(__('filament/admin/product_resource.is_active'))

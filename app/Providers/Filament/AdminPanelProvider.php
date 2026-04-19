@@ -31,14 +31,14 @@ class AdminPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
 
-    
+
         return $panel
             ->default()
             ->id('admin')
             ->path('admin')
             ->login()
             ->colors([
-                'primary' => Color::Slate[900],
+                'primary' => Color::hex('#12ea79'), // custom primary color 
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
@@ -65,16 +65,17 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-            ->brandLogo(asset('assets/imgs/logo/logo.jfif'))
-            ->brandLogoHeight('50px')
-            ->favicon(asset('assets/imgs/logo/logo.jfif'))
+            // ->brandLogo(asset('assets/imgs/logo/logo.png'))
+            // ->brandLogoHeight('50px')
+            ->favicon(asset('assets/imgs/logo/icon.svg'))
+            ->brandName(fn () => view('filament.logo'))
             ->plugins([
                 FilamentLanguageSwitcherPlugin::make()
                     ->locales([
                         ['code' => 'en', 'name' => 'English', 'flag' => 'gb'],
                         ['code' => 'ar', 'name' => 'Arabic', 'flag' => 'sa'],
                     ]),
-                    
+
             ])
             ->plugin(SpatieTranslatablePlugin::make()
                 ->persist()
@@ -83,6 +84,9 @@ class AdminPanelProvider extends PanelProvider
                     NavigationGroup::make('administration')
                         ->label(fn () => __('general.administration'))
                         ->icon('heroicon-o-user-group'),
+                    NavigationGroup::make('pageContent')
+                        ->label(fn () => __('general.pages_content'))
+                         ->icon('heroicon-o-document-text'),
                 ]);
 
 

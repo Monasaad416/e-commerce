@@ -1,0 +1,11 @@
+parameters:
+    level: 5
+    paths:
+        - app
+        - database
+        - resources
+        - routes
+
+    excludePaths:
+        - app/Filament/Resources/*/Pages/*
+        - vendor/*

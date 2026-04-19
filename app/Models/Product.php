@@ -67,7 +67,7 @@ class Product extends Model
 
     public function primaryImage()
     {
-        return $this->hasOne(ProductImage::class)->where('is_primary', 1);
+        return $this->hasOne(ProductImage::class)->where('is_featured', 1);
     }
 
 
@@ -80,22 +80,14 @@ class Product extends Model
 
     public function tags()
     {
-        return $this->belongsToMany(Tag::class, 'product_tags');
+        return $this->belongsToMany(Tag::class, 'product_tags')->withTimestamps();
     }
 
-
-
-    public function productAttributeValues()
-    {
-        return $this->hasMany(ProductAttributeValue::class);
-    }
 
     public function productVariants()
     {
         return $this->hasMany(ProductVariant::class);
     }
     
-
-
 
 }

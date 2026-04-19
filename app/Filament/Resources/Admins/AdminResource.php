@@ -21,7 +21,7 @@ class AdminResource extends Resource
     protected static ?string $model = Admin::class;
 
     // protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUserGroup;
-    
+
     public static function getNavigationGroup(): ?string
     {
         return __('general.administration');
@@ -29,7 +29,7 @@ class AdminResource extends Resource
 
 
     protected static ?string $recordTitleAttribute = 'Admin';
-    
+
     protected static ?int $navigationSort = 9;
 
 
