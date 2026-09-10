@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Api\V1\Auth;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
@@ -24,6 +25,12 @@ class LoginController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
+        // Merge guest cart if client sends X-Cart-Token / cart_token.
+        $guestToken = Cart::extractGuestToken($request);
+        if ($guestToken) {
+            Cart::mergeGuestCartIntoUser($guestToken, $user);
+        }
+
         return response()->json([
             'message' => 'Logged in successfully',
             'token' => $token,
@@ -31,7 +38,7 @@ class LoginController extends Controller
             'name' => $user->name,
             'email' => $user->email,
             'token_type' => 'Bearer',
-            'role' => 'user'
+            'role' => 'user',
         ], 200);
     }
 

@@ -12,12 +12,12 @@ class Setting extends Model
         'value' => 'array',
     ];
 
-    public function getValueAttribute($value)
+    public function getValueAttribute(string $value)
     {
         return json_decode($value, true);
     }
 
-    public function setValueAttribute($value)
+    public function setValueAttribute(string $value)
     {
         $this->attributes['value'] = json_encode($value);
     }

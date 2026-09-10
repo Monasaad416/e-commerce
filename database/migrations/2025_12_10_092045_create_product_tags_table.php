@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('product_tags', function (Blueprint $table) {
             $table->id(); 
             $table->foreignId('product_id')->nullable()->constrained('products')->onDelete('set null');
-            $table->foreignId('product_variant_id')->nullable()->constrained('product_variants')->onDelete('set null');
+            // product_variants is created later, so its FK is added in a follow-up migration.
+            $table->unsignedBigInteger('product_variant_id')->nullable()->index();
             $table->foreignId('tag_id')->constrained('tags')->onDelete('cascade');
             $table->unique(['product_id', 'product_variant_id', 'tag_id']);
             $table->timestamps();

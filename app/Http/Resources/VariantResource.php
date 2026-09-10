@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Support\MediaUrl;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class VariantResource extends JsonResource
@@ -29,11 +30,13 @@ class VariantResource extends JsonResource
                 ];
             })->all(),
             'tags' => TagResource::collection($this->whenLoaded('tags')),
-            'featured_image' => $this->variantPrimaryImage ?  $this->variantPrimaryImage->image_path : null,
+            'featured_image' => $this->variantPrimaryImage
+                ? MediaUrl::public($this->variantPrimaryImage->image_path)
+                : null,
             'images' => $this->variantImages->map(function ($image) {
                 return [
                     'id' => $image->id,
-                    'url' =>  $image->image_path ,
+                    'url' => MediaUrl::public($image->image_path),
                     'is_featured' => (bool) $image->is_featured,
                 ];
             }),

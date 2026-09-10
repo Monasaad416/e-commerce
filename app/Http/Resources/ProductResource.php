@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Support\MediaUrl;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -23,7 +24,7 @@ class ProductResource extends JsonResource
             'type' => $this->type,
             'selling_price' => $this->selling_price,
             'discount_price' => $this->discount_price,
-            'thumbnail' => $this->thumbnail,
+            'thumbnail' => MediaUrl::public($this->thumbnail),
             'meta_keywords' => $this->getTranslations('meta_keywords'),
             'meta_description' => $this->meta_description,
             'is_active' => $this->is_active,

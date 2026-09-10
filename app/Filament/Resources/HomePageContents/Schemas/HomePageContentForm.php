@@ -200,6 +200,58 @@ class HomePageContentForm
                                     ]),
                             ])
                         ]),
+                    Tab::make(__('filament/admin/page_content_resource.third_banner'))
+                        ->schema([
+                            Section::make(__('filament/admin/page_content_resource.craft_process_section'))
+                                ->description(__('filament/admin/page_content_resource.craft_process_simulation'))
+                                ->schema([
+                                    Grid::make(12)->schema([
+                                        Section::make(__('filament/admin/page_content_resource.content_side'))
+                                            ->description(__('filament/admin/page_content_resource.craft_process_content_hint'))
+                                            ->columnSpan(7)
+                                            ->schema([
+                                                TextInput::make('content.craft_process_eyebrow')
+                                                    ->label(__('filament/admin/page_content_resource.eyebrow'))
+                                                    ->translatableTabs(),
+                                                Textarea::make('content.craft_process_title')
+                                                    ->label(__('filament/admin/page_content_resource.title'))
+                                                    ->rows(3)
+                                                    ->required()
+                                                    ->translatableTabs(),
+                                                Textarea::make('content.craft_process_subtitle')
+                                                    ->label(__('filament/admin/page_content_resource.subtitle'))
+                                                    ->rows(4)
+                                                    ->required()
+                                                    ->translatableTabs(),
+                                                TextInput::make('content.craft_process_badge_text')
+                                                    ->label(__('filament/admin/page_content_resource.badge_text'))
+                                                    ->required()
+                                                    ->translatableTabs(),
+                                            ]),
+                                        Section::make(__('filament/admin/page_content_resource.steps'))
+                                            ->description(__('filament/admin/page_content_resource.steps_hint'))
+                                            ->columnSpan(5)
+                                            ->schema([
+                                                Repeater::make('content.craft_process_items')
+                                                    ->label(__('filament/admin/page_content_resource.steps'))
+                                                    ->schema([
+                                                        TextInput::make('title')
+                                                            ->label(__('filament/admin/page_content_resource.title'))
+                                                            ->required()
+                                                            ->translatableTabs(),
+                                                        Textarea::make('text')
+                                                            ->label(__('filament/admin/page_content_resource.description_text'))
+                                                            ->rows(3)
+                                                            ->required()
+                                                            ->translatableTabs(),
+                                                    ])
+                                                    ->defaultItems(3)
+                                                    ->reorderable(false)
+                                                    ->addActionLabel(__('filament/admin/page_content_resource.add_step')),
+                                            ]),
+                                    ]),
+                                ]),
+                        ]),
                 ])->columnSpanFull()
    
         ]);

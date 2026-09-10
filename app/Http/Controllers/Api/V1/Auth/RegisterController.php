@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Api\V1\Auth;
 
 use App\Events\NewUserRegistered;
+use App\Http\Controllers\Controller;
+use App\Models\Cart;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
-use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
@@ -36,6 +37,11 @@ class RegisterController extends Controller
 
             // Create token without logging in
             $token = $user->createToken('auth_token')->plainTextToken;
+
+            $guestToken = Cart::extractGuestToken($request);
+            if ($guestToken) {
+                Cart::mergeGuestCartIntoUser($guestToken, $user);
+            }
 
             DB::commit();
 

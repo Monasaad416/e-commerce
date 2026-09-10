@@ -83,6 +83,7 @@ class ProductVariantsRelationManager extends RelationManager
     {
         return $table
             ->recordTitleAttribute('product_id')
+            ->defaultSort('created_at', 'desc')
             ->columns([
             TextColumn::make('variant_attributes')
                 ->label(__('Attributes'))

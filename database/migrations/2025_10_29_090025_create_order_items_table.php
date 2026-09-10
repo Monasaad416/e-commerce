@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('order_id')->constrained()->onDelete('cascade');
             $table->foreignId('product_id')->nullable()->constrained()->onDelete('set null');
-            $table->foreignId('product_variant_id')->nullable()->constrained()->onDelete('set null');
+            // Product variants table is created in a later migration timestamp,
+            // so we add this FK in a dedicated follow-up migration.
+            $table->unsignedBigInteger('product_variant_id')->nullable()->index();
             $table->json('name');
             $table->integer('qty');
             $table->decimal('price', 10, 2);

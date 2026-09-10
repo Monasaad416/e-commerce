@@ -3,20 +3,15 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Pages\MyCustomDashboard;
-use App\Filament\Resources\Brands\Pages\CreateBrand;
 use CraftForge\FilamentLanguageSwitcher\FilamentLanguageSwitcherPlugin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Navigation\NavigationGroup;
-use Filament\Navigation\NavigationItem;
-use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
-use Filament\Widgets\AccountWidget;
-use Filament\Widgets\FilamentInfoWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -24,7 +19,6 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use LaraZeus\SpatieTranslatable\SpatieTranslatablePlugin;
-use Pest\Plugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -38,7 +32,7 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->colors([
-                'primary' => Color::hex('#12ea79'), // custom primary color 
+                'primary' => Color::hex('#3d2b1f'), // custom primary color
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
@@ -65,10 +59,10 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-            // ->brandLogo(asset('assets/imgs/logo/logo.png'))
+            ->brandLogo(asset('assets/imgs/logo/favicon.jpeg'))
             // ->brandLogoHeight('50px')
-            ->favicon(asset('assets/imgs/logo/icon.svg'))
-            ->brandName(fn () => view('filament.logo'))
+            ->favicon(asset('assets/imgs/logo/favicon.jpeg'))
+            // ->brandName(fn () => view('filament.logo'))
             ->plugins([
                 FilamentLanguageSwitcherPlugin::make()
                     ->locales([
@@ -88,6 +82,8 @@ class AdminPanelProvider extends PanelProvider
                         ->label(fn () => __('general.pages_content'))
                          ->icon('heroicon-o-document-text'),
                 ]);
+
+
 
 
 
