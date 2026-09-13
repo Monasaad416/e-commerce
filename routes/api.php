@@ -4,10 +4,15 @@ use App\Http\Controllers\Api\V1\Auth\LoginController;
 use App\Http\Controllers\Api\V1\Auth\RegisterController;
 use App\Http\Controllers\Api\V1\CartController;
 use App\Http\Controllers\Api\V1\CategoryController;
+use App\Http\Controllers\Api\V1\CheckoutController;
 use App\Http\Controllers\Api\V1\OrderController;
 use App\Http\Controllers\Api\V1\PageContentController;
 use App\Http\Controllers\Api\V1\ProductController;
+use App\Http\Controllers\Api\V1\StripeWebhookController;
 use Illuminate\Support\Facades\Route;
+
+// Stripe webhooks (no auth, no locale) — configure in Stripe Dashboard / Stripe CLI
+Route::post('/stripe/webhook', [StripeWebhookController::class, 'handle']);
 
 Route::group(['prefix' => 'v1/{locale?}', 'middleware' => 'setAppLocale'], function () {
     // Auth
@@ -31,8 +36,16 @@ Route::group(['prefix' => 'v1/{locale?}', 'middleware' => 'setAppLocale'], funct
         Route::post('/cart/merge', [CartController::class, 'merge']);
         Route::post('/logout', [LoginController::class, 'logout']);
 
+
+        // Orders
         Route::post('/create-order', [OrderController::class, 'store']);
         Route::get('/orders', [OrderController::class, 'index']);
-        Route::post('/orders/{order_id}/update-payment-status', [OrderController::class, 'updatePaymentStatus']);
+
+        // Checkout (GET+POST: Postman trailing-slash redirects often turn POST into GET)
+        Route::match(['get', 'post'], '/orders/{order}/checkout', [
+            CheckoutController::class,
+            'checkoutPayment',
+        ])->whereNumber('order');
+
     });
 });

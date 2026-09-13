@@ -169,9 +169,8 @@ class OrderController extends Controller
                 'total' => $orderSubtotal + $orderTax,
             ]);
 
-            // Optionally, clear the cart after order
-            $cart->cartItems()->delete();
-            $cart->delete();
+            // Keep cart until payment succeeds (Stripe webhook).
+            // If user cancels checkout they can return to /cart with items intact.
 
             DB::commit();
 
@@ -201,24 +200,4 @@ class OrderController extends Controller
             ], 500);
         }
     }
-
-    public function updatePaymentStatus(Request $request, $order_id)
-    {
-        $order = Order::where('id', $order_id)->where('user_id', $request->user()->id)->first();
-        if (!$order) {
-            return response()->json([
-                'success' => false,
-                'message' => __('front.order_not_found_or_not_authorized'),
-                'error_code' => 'ORDER_NOT_FOUND',
-            ], 404);
-        }
-        $order->status = 'processing';
-        $order->payment_status = 'paid';
-        $order->save();
-        return response()->json([
-            'success' => true,
-            'message' => __('front.order_status_updated_successfully'),
-        ]);
-    }
-
 }

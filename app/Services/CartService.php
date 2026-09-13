@@ -9,7 +9,6 @@ use App\Models\ProductVariant;
 use App\Support\MediaUrl;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Cookie;
 
 class CartService
 {
@@ -416,7 +415,7 @@ class CartService
         ]);
 
         if ($clearGuestCookie) {
-            return $response->withCookie(Cookie::forget(Cart::GUEST_TOKEN_COOKIE));
+            return $response->withCookie(cookie()->forget(Cart::GUEST_TOKEN_COOKIE));
         }
 
         if ($token) {
