@@ -19,4 +19,9 @@ return [
     'order_cart_is_empty' => 'السلة فارغة، أضف منتجات قبل إتمام الطلب',
     'order_not_found_or_not_authorized' => 'الطلب غير موجود أو ليس لديك صلاحية لتحديثه',
     'order_status_updated_successfully' => 'تم تحديث حالة الطلب بنجاح',
+    'payment_confirmed' => 'تم تأكيد الدفع بنجاح.',
+    'payment_pending' => 'الدفع قيد المعالجة. انتظري لحظة أو حدّثي الصفحة.',
+    'payment_failed' => 'لم يكتمل الدفع. يمكنك المحاولة مرة أخرى من السلة.',
+    'payment_verification_failed' => 'تعذر التحقق من الدفع مع Stripe الآن.',
+    'payment_session_mismatch' => 'جلسة الدفع لا تطابق هذا الطلب.',
 ];

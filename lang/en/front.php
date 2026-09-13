@@ -19,4 +19,9 @@ return [
     'order_cart_is_empty' => 'Cart is empty. Please add items before checkout.',
     'order_not_found_or_not_authorized' => 'Order not found or you are not authorized to update it',
     'order_status_updated_successfully' => 'Order status updated successfully',
+    'payment_confirmed' => 'Payment confirmed successfully.',
+    'payment_pending' => 'Payment is still processing. Please wait a moment or refresh this page.',
+    'payment_failed' => 'Payment was not completed. You can try again from your cart.',
+    'payment_verification_failed' => 'Unable to verify payment with Stripe right now.',
+    'payment_session_mismatch' => 'Payment session does not match this order.',
 ];

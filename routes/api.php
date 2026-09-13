@@ -41,11 +41,15 @@ Route::group(['prefix' => 'v1/{locale?}', 'middleware' => 'setAppLocale'], funct
         Route::post('/create-order', [OrderController::class, 'store']);
         Route::get('/orders', [OrderController::class, 'index']);
 
-        // Checkout (GET+POST: Postman trailing-slash redirects often turn POST into GET)
+        // Checkout
         Route::match(['get', 'post'], '/orders/{order}/checkout', [
             CheckoutController::class,
             'checkoutPayment',
         ])->whereNumber('order');
 
+        // Success page: verify with Stripe API (works without local webhook)
+        Route::post('/checkout/confirm', [CheckoutController::class, 'confirm']);
+        Route::get('/orders/{order}/payment-status', [CheckoutController::class, 'paymentStatus'])
+            ->whereNumber('order');
     });
 });
