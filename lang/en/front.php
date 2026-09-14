@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'cart_retrieved_successfully' => 'Cart retrieved successfully',
+    'cart_created_successfully' => 'Cart created successfully',
+    'cart_updated_successfully' => 'Cart updated successfully',
+    'cart_update_failed' => 'Cart update failed',
+    'cart_create_failed' => 'Cart creation failed',
+    'cart_deleted_successfully' => 'Cart deleted successfully',
+    'unauthorized' => 'Unauthorized',
+    'cart_item_not_found' => 'Cart item not found',
+    'variant_id_is_required_for_variable_products' => 'Variant id is required for variable products',
+    'selected_variant_is_no_longer_available' => 'Selected variant is no longer available',
+    'insufficient_stock_for_selected_variant' => 'Insufficient stock for selected variant',
+    'selected_product_is_no_longer_available' => 'Selected product is no longer available',
+    'insufficient_stock_for_selected_product' => 'Insufficient stock for selected product',
+    'order_created_successfully' => 'Order created successfully',
+    'order_create_failed' => 'Unable to create order right now. Please try again.',
+    'order_cart_is_empty' => 'Cart is empty. Please add items before checkout.',
+    'order_not_found_or_not_authorized' => 'Order not found or you are not authorized to update it',
+    'order_status_updated_successfully' => 'Order status updated successfully',
+    'payment_confirmed' => 'Payment confirmed successfully.',
+    'payment_pending' => 'Payment is still processing. Please wait a moment or refresh this page.',
+    'payment_failed' => 'Payment was not completed. You can try again from your cart.',
+    'payment_verification_failed' => 'Unable to verify payment with Stripe right now.',
+    'payment_session_mismatch' => 'Payment session does not match this order.',
+];

@@ -51,6 +51,8 @@ return [
     'edit_variant_image' => 'تعديل صورة المتغير',
     'variation_primary_image' => 'الصورة المميزة للمتغير',
     'variation_image_gallery' => 'معرض صور المتغير',
+    'products_retrieved_successfully' => 'تم استرجاع المنتجات بنجاح',
+    'product_retrieved_successfully' => 'تم استرجاع المنتج بنجاح',
 
 
 ];

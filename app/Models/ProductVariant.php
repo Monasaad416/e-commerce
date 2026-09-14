@@ -21,46 +21,13 @@ class ProductVariant extends Model
         'is_active' => 'boolean',
         'is_featured' => 'boolean',
     ];
+    public function product() { return $this->belongsTo(Product::class); }
 
-    public function product()
+    public function variantAttributeValues()
     {
-        return $this->belongsTo(Product::class);
+        return $this->hasMany(VariantAttributeValue::class);
     }
 
-
-    public function attributes()
-    {
-        return $this->belongsToMany(
-            Attribute::class,
-            'variant_attribute_values',
-            'product_variant_id', // FK على جدول product_variants
-            'attribute_id'        // FK على جدول attributes
-        )
-        ->withPivot('attribute_value_id')
-        ->withTimestamps();
-    }
-
-
-   public function attributeValues()
-    {
-        return $this->hasManyThrough(
-            AttributeValue::class,
-            VariantAttributeValue::class,
-            'product_variant_id', // Foreign key on variant_attribute_values table
-            'id', // Foreign key on attribute_values table
-            'id', // Local key on product_variants table
-            'attribute_value_id' // Local key on variant_attribute_values table
-        );
-    }
-
-    public function getAttributeValuesStringAttribute()
-    {
-        $values = $this->attributeValues->pluck('value')->join(', ');
-        return $values;
-    }
-
-
-    
     public function variantImages()
     {
         return $this->hasMany(VariantImage::class);
@@ -68,8 +35,43 @@ class ProductVariant extends Model
 
     public function variantPrimaryImage()
     {
-        return $this->hasOne(VariantImage::class)->where('is_primary', 1);
+        return $this->hasOne(VariantImage::class)->where('is_featured', 1);
     }
+
+    public function attributes()
+    {
+        return $this->belongsToMany(
+            Attribute::class,
+            'variant_attribute_values', // pivot table name
+            'product_variant_id',      // foreign key on the pivot table
+            'attribute_id'             // related key on the pivot table
+        )->withPivot('attribute_value_id')
+        ->withTimestamps();
+    }
+
+    public function attributeValues()
+    {
+        return $this->belongsToMany(
+            AttributeValue::class,
+            'variant_attribute_values',
+            'product_variant_id',
+            'attribute_value_id'
+        )->withPivot('attribute_id')
+        ->withTimestamps();
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(
+            Tag::class,
+            'product_tags',
+            'product_variant_id',
+            'tag_id'
+        )
+            ->withPivot(['product_id'])
+            ->withTimestamps();
+    }
+
 
 }
 

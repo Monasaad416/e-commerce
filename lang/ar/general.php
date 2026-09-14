@@ -9,10 +9,6 @@ return [
     'created_at' => 'الإضافة',
     'updated_at' => 'التعديل',
     'active' => 'مفعل',
-    'inactive' => 'غير مفعل',
-    'status' => 'الحالة',
-    'created_at' => 'الإضافة',
-    'updated_at' => 'التعديل',
     'item' => 'العنصر',
     'status_updated' => ' تم تحديث الحالة بنجاح',
     'category' => 'القسم',
@@ -22,4 +18,8 @@ return [
     'orders' => 'الطلبات',
     'customers' => 'العملاء',
     'pending_orders' => 'الطلبات المعلقة',
+    'pages_content' => 'محتوي الصفحات',
+    'request_sent_successfully'=>'تم إرسال الطلب بنجاح',
+    'an_error_occurred'=>'حدث خطأ ما',
+
 ];

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->enum('payment_status', ['unpaid', 'paid', 'failed'])->default('unpaid');
             $table->enum('shipping_status', ['not_shipped', 'shipped', 'delivered'])->default('not_shipped');
             $table->text('notes')->nullable();
+            $table->string('address',200);
             $table->timestamps();
         });
     }

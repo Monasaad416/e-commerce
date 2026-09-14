@@ -20,6 +20,7 @@ class BrandsTable
 
     
         return $table
+            ->defaultSort('created_at', 'desc')
             ->columns([
                 TextColumn::make('name')
                     ->label(__('general.name'))

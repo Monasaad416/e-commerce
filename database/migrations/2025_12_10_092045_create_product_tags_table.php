@@ -12,9 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('product_tags', function (Blueprint $table) {
-            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
+            $table->id(); 
+            $table->foreignId('product_id')->nullable()->constrained('products')->onDelete('set null');
+            // product_variants is created later, so its FK is added in a follow-up migration.
+            $table->unsignedBigInteger('product_variant_id')->nullable()->index();
             $table->foreignId('tag_id')->constrained('tags')->onDelete('cascade');
-            $table->primary(['product_id', 'tag_id']);
+            $table->unique(['product_id', 'product_variant_id', 'tag_id']);
             $table->timestamps();
         });
     }

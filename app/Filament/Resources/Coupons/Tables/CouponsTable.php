@@ -17,6 +17,7 @@ class CouponsTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->defaultSort('created_at', 'desc')
             ->columns([
                 TextColumn::make('code')
                     ->label(__('filament/admin/coupon_resource.code'))

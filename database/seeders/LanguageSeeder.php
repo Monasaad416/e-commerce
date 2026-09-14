@@ -12,18 +12,22 @@ class LanguageSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\Language::create([
-            'name' => 'English',
-            'code' => 'en',
-            'is_default' => true,
-            'direction' => 'ltr',
-        ]);
+        \App\Models\Language::updateOrCreate(
+            ['code' => 'en'],
+            [
+                'name' => 'English',
+                'is_default' => true,
+                'direction' => 'ltr',
+            ]
+        );
 
-        \App\Models\Language::create([
-            'name' => 'Arabic',
-            'code' => 'ar',
-            'is_default' => false,
-            'direction' => 'rtl',
-        ]); 
+        \App\Models\Language::updateOrCreate(
+            ['code' => 'ar'],
+            [
+                'name' => 'Arabic',
+                'is_default' => false,
+                'direction' => 'rtl',
+            ]
+        );
     }
 }

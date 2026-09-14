@@ -14,25 +14,6 @@ class AttributeValue extends Model
     protected $fillable = ['value', 'attribute_id'];
 
 
-    public function tag() {
-        return $this->belongsTo(Tag::class);
-    }
-
-
-    
-    public function product()
-    {
-        return $this->belongsTo(Product::class);
-    }
-
-    public function attribute()
-    {
-        return $this->belongsTo(Attribute::class);
-    }
-
-    public function productAttributeValues()
-    {
-        return $this->belongsToMany(Product::class, 'product_attribute_values', 'product_id', 'attribute_value_id')
-            ->withTimestamps();
-    }
+    public function attribute() { return $this->belongsTo(Attribute::class); }
+    public function tag() { return $this->belongsTo(Tag::class); }
 }

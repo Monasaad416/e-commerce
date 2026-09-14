@@ -14,6 +14,7 @@ class OrdersTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->defaultSort('created_at', 'desc')
             ->columns([
                 TextColumn::make('user_id')
                     ->label(__('filament/admin/order_resource.user_id'))

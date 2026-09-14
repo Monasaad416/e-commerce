@@ -537,7 +537,7 @@ namespace App\Models{
  * @property int $id
  * @property int $product_id
  * @property string $image_path
- * @property int $is_primary
+ * @property int $is_featured
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read mixed $image_url

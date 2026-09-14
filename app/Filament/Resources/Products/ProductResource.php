@@ -25,7 +25,7 @@ class ProductResource extends Resource
 {
     protected static ?string $model = Product::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentText;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentDuplicate;
 
     protected static ?string $recordTitleAttribute = 'name';
 
@@ -58,19 +58,19 @@ class ProductResource extends Resource
                                         ->weight('bold')
 
                                         ->columnSpanFull(),
-                                        
+
                                     TextEntry::make('description')
                                         ->label('')
                                         ->columnSpanFull()
                                         ->markdown()
                                         ->prose(),
-                                        
+
                                     TextEntry::make('sku')
                                         ->label(__('SKU'))
                                         ->badge()
                                         ->color('gray'),
                                 ]),
-                            
+
                             // Second Column - Pricing
                             Grid::make(1)
                                 ->schema([
@@ -79,21 +79,21 @@ class ProductResource extends Resource
                                         ->money('USD')
                                         ->weight('bold')
                                         ->color('gray'),
-                                        
+
                                     TextEntry::make('selling_price')
                                         ->label(__('Selling Price'))
                                         ->money('USD')
                                         ->weight('bold')
                                         ->color('success'),
-                                        
+
                                     TextEntry::make('discount_price')
                                         ->label(__('Discount Price'))
                                         ->money('USD')
                                         ->color('danger'),
-                                        
-                
+
+
                                 ]),
-                            
+
                             // Third Column - Inventory & Status
                             Grid::make(1)
                                 ->schema([
@@ -102,7 +102,7 @@ class ProductResource extends Resource
                                         ->weight('bold')
                                         ->color(fn ($state) => $state > 0 ? 'success' : 'danger')
                                         ->formatStateUsing(fn ($state) => $state . ' in stock'),
-                                        
+
                                     TextEntry::make('is_active')
                                         ->label(__('Status'))
                                         ->badge()
@@ -112,11 +112,11 @@ class ProductResource extends Resource
                                             default => 'gray',
                                         })
                                         ->formatStateUsing(fn (string $state): string => $state ? __('general.active') : __('general.inactive')),
-                                        
+
                                     TextEntry::make('created_at')
                                         ->label(__('Created At'))
                                         ->dateTime(),
-                                        
+
                                     TextEntry::make('updated_at')
                                         ->label(__('Last Updated'))
                                         ->since(),
@@ -126,7 +126,7 @@ class ProductResource extends Resource
                 ->columnSpanFull()
                 ->collapsible()
                 ->collapsed(false),
-                    
+
                 // Image Gallery Section
                 Section::make(__('filament/admin/product_resource.image_gallery'))
                     ->collapsible()
@@ -148,7 +148,7 @@ class ProductResource extends Resource
                                 return [
                                     'images' => $images->map(fn ($image) => [
                                         'url' => Storage::url($image->image_path),
-                                        'is_primary' => $image->is_primary ?? false,
+                                        'is_featured' => $image->is_featured ?? false,
                                     ])->toArray(),
                                 ];
                             })
@@ -178,7 +178,7 @@ class ProductResource extends Resource
         ];
     }
 
-    
+
     public static function getModelLabel(): string
     {
         return __('filament/admin/product_resource.model_label');
@@ -188,9 +188,4 @@ class ProductResource extends Resource
     {
         return __('filament/admin/product_resource.plural_model_label');
     }
-
-
-
-
-
 }

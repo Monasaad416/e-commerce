@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'cart_retrieved_successfully' => 'تم عرض السلة الخاصة بك بنجاح',
+    'cart_created_successfully' => 'تم إنشاء السلة الخاصة بك بنجاح',
+    'cart_updated_successfully' => 'تم تحديث السلة الخاصة بك بنجاح',
+    'cart_update_failed' => 'فشل تحديث السلة',
+    'cart_create_failed' => 'فشل إنشاء السلة',
+    'cart_deleted_successfully' => 'تم حذف السلة الخاصة بك بنجاح',
+    'unauthorized' => 'غير مصرح',
+    'cart_item_not_found' => 'عنصر السلة غير موجود',
+    'variant_id_is_required_for_variable_products' => 'يجب إرسال معرف المتغير للمنتجات متعددة المتغيرات',
+    'selected_variant_is_no_longer_available' => 'المنتج المختار غير متاح',
+    'insufficient_stock_for_selected_variant' => 'المنتج المختار ليس لديه سلعة متاحة',
+    'selected_product_is_no_longer_available' => 'المنتج المختار غير متاح',
+    'insufficient_stock_for_selected_product' => 'المنتج المختار ليس لديه سلعة متاحة',
+    'order_created_successfully' => 'تم إنشاء الطلب بنجاح',
+    'order_create_failed' => 'تعذر إنشاء الطلب الآن، حاول مرة أخرى',
+    'order_cart_is_empty' => 'السلة فارغة، أضف منتجات قبل إتمام الطلب',
+    'order_not_found_or_not_authorized' => 'الطلب غير موجود أو ليس لديك صلاحية لتحديثه',
+    'order_status_updated_successfully' => 'تم تحديث حالة الطلب بنجاح',
+    'payment_confirmed' => 'تم تأكيد الدفع بنجاح.',
+    'payment_pending' => 'الدفع قيد المعالجة. انتظري لحظة أو حدّثي الصفحة.',
+    'payment_failed' => 'لم يكتمل الدفع. يمكنك المحاولة مرة أخرى من السلة.',
+    'payment_verification_failed' => 'تعذر التحقق من الدفع مع Stripe الآن.',
+    'payment_session_mismatch' => 'جلسة الدفع لا تطابق هذا الطلب.',
+];

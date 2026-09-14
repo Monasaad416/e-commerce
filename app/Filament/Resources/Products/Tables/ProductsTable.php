@@ -22,55 +22,46 @@ class ProductsTable
             ->query(
                 Product::query()->with(['images','primaryImage', 'productVariants.variantPrimaryImage'])
             )
+            ->defaultSort('created_at', 'desc')
             ->columns([
+                TextColumn::make('name')
+                    ->label(__('filament/admin/product_resource.name'))
+                    ->sortable(),
                 TextColumn::make('category.name')
                     ->label(__('filament/admin/product_resource.category_id'))
                     ->sortable(),
                 TextColumn::make('sku')
                     ->label(__('filament/admin/product_resource.sku'))
                     ->searchable(),
-         
+
 
                 ImageColumn::make('primary_image')
-                    ->disk('public') 
+                    ->label(__('filament/admin/product_resource.primary_image'))
+                    ->disk('public')
                     ->getStateUsing(function ($record) {
 
-                        //Variable product → first variant with a primary image
-                        if ($record->type === 'variable') {
-                            $variant = $record->productVariants->first();
-                            if ($variant?->variantPrimaryImage?->image_path) {
-                                return asset('storage/' . $variant->variantPrimaryImage->image_path);
-                            }
-                        }
+    $imagePath = null;
 
-                        //Simple product → product primary image
-                        if ($record->primaryImage) {
+    if ($record->type === 'variable') {
+        $variant = $record->productVariants->first();
+        $imagePath = $variant?->variantPrimaryImage?->image_path;
+    } else {
+        $imagePath = $record->primaryImage?->image_path;
+    }
 
-                            return asset('storage/' . ($record->primaryImage->image_path));
-                        } else {
-                            return asset('storage/No_Image_Available.jpg');
-                        }
+    if (!$imagePath) {
+        return asset('storage/No_Image_Available.jpg');
+    }
 
-                    })
+    // External URL
+    if (filter_var($imagePath, FILTER_VALIDATE_URL)) {
+        return $imagePath;
+    }
+
+    // Local storage path
+    return asset('storage/' . ltrim($imagePath, '/'));
+})
                     ->square(),
-                        
-                TextColumn::make('purchase_price')
-                    ->label(__('filament/admin/product_resource.purchase_price'))
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('selling_price')
-                    ->label(__('filament/admin/product_resource.selling_price'))
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('qty')
-                    ->label(__('filament/admin/product_resource.qty'))
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('discount_price')
-                    ->label(__('filament/admin/product_resource.discount_price'))
-                    ->numeric()
-                    ->sortable(),
-
                 IconColumn::make('is_active')
                     ->label(__('filament/admin/product_resource.is_active'))
                     ->boolean(),
