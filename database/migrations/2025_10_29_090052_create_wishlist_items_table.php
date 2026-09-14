@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('wishlist_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->foreignId('wishlist_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('product_id')->constrained()->cascadeOnDelete();
             $table->decimal('price', 10, 2);
             $table->timestamps();
+
+            $table->unique(['wishlist_id', 'product_id']);
         });
     }
 
