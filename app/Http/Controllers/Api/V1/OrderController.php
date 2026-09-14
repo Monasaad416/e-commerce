@@ -201,9 +201,9 @@ class OrderController extends Controller
         }
     }
 
-    public function show(Order $order)
+    public function show(int $orderId, Request $request)
     {
-        $order = Order::findOrFail($order);
+        $order = Order::where('id', $orderId)->where('user_id', $request->user()->id)->first();
         if (!$order) {
             return response()->json([
                 'success' => false,
@@ -213,7 +213,7 @@ class OrderController extends Controller
         }
         return response()->json([
             'success' => true,
-                'data' => new OrderResource($order),
-            ]);
+            'data' => new OrderResource($order),
+        ]);
     }
 }

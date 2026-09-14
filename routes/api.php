@@ -40,7 +40,7 @@ Route::group(['prefix' => 'v1/{locale?}', 'middleware' => 'setAppLocale'], funct
         // Orders
         Route::post('/create-order', [OrderController::class, 'store']);
         Route::get('/orders', [OrderController::class, 'index']);
-        Route::get('/orders/{order}', [OrderController::class, 'show'])->whereNumber('order');
+        Route::get('/orders/{orderId}', [OrderController::class, 'show'])->whereNumber('orderId');
         // Checkout
         Route::match(['get', 'post'], '/orders/{order}/checkout', [
             CheckoutController::class,
