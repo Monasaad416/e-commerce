@@ -68,9 +68,9 @@ class CheckoutController extends Controller
                 ];
             })->values()->all(),
             'success_url' => rtrim((string) config('services.frontend_url', config('app.url')), '/')
-                .'/checkout/success?session_id={CHECKOUT_SESSION_ID}&order_id='.$order->id,
+                . '/' . $locale . '/checkout/success?session_id={CHECKOUT_SESSION_ID}&order_id=' . $order->id,
             'cancel_url' => rtrim((string) config('services.frontend_url', config('app.url')), '/')
-                .'/cart',
+                . '/' . $locale . '/cart',
             'metadata' => [
                 'user_id' => (string) $user->id,
                 'order_id' => (string) $order->id,
