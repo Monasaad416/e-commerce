@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\OrderItemResource;
 use App\Http\Resources\OrderResource;
 use App\Models\Cart;
 use App\Models\OrderItem;
@@ -20,6 +19,7 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         $orders = Order::where('user_id', $request->user()->id)
+            ->with(['items.product'])
             ->latest()
             ->paginate(10);
 
@@ -67,7 +67,6 @@ class OrderController extends Controller
             ]);
 
             // Create order items for all cart items
-            $orderItems = [];
             $orderSubtotal = 0.0;
             $orderTax = 0.0;
             foreach ($cart->cartItems as $item) {
@@ -144,7 +143,7 @@ class OrderController extends Controller
                 // Use discount_price if available, otherwise use base price
                 $finalPrice = $discountPrice ?: $basePrice;
 
-                $orderItems[] = OrderItem::create([
+                OrderItem::create([
                     'order_id' => $order->id,
                     'product_id' => $item->product_id,
                     'product_variant_id' => $item->product_variant_id,
@@ -174,13 +173,12 @@ class OrderController extends Controller
 
             DB::commit();
 
+            $order->load(['items.product']);
+
             return response()->json([
                 'success' => true,
                 'message' => __('front.order_created_successfully'),
-                'data' => [
-                    'order' => new OrderResource($order),
-                    'items' => OrderItemResource::collection($orderItems),
-                ],
+                'data' => new OrderResource($order),
             ]);
 
         } catch (Throwable $e) {
@@ -203,14 +201,19 @@ class OrderController extends Controller
 
     public function show(int $orderId, Request $request)
     {
-        $order = Order::where('id', $orderId)->where('user_id', $request->user()->id)->first();
-        if (!$order) {
+        $order = Order::where('id', $orderId)
+            ->where('user_id', $request->user()->id)
+            ->with(['items.product'])
+            ->first();
+
+        if (! $order) {
             return response()->json([
                 'success' => false,
-                'message' => __('front.order_not_found'),
+                'message' => __('front.order_not_found_or_not_authorized'),
                 'error_code' => 'ORDER_NOT_FOUND',
             ], 404);
         }
+
         return response()->json([
             'success' => true,
             'data' => new OrderResource($order),
