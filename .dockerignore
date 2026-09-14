@@ -1,0 +1,15 @@
+.git
+.github
+.env
+.env.*
+vendor
+node_modules
+storage/logs/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+npm-debug.log
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+auth.json

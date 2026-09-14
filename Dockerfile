@@ -42,13 +42,15 @@ RUN composer install \
     --no-dev \
     --no-interaction \
     --prefer-dist \
-    --optimize-autoloader
+    --optimize-autoloader \
+    --no-scripts
 
 # Copy application
 COPY . .
 
-# Laravel writable directories
-RUN mkdir -p storage/framework/cache \
+# Install again so packages that need the full app can run post-scripts safely
+RUN composer dump-autoload --optimize --no-dev \
+    && mkdir -p storage/framework/cache \
     storage/framework/sessions \
     storage/framework/views \
     storage/logs \
@@ -58,6 +60,8 @@ RUN mkdir -p storage/framework/cache \
 
 # Nginx config
 COPY docker/nginx/default.conf /etc/nginx/sites-available/default
+RUN ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default \
+    && rm -f /etc/nginx/sites-enabled/default.bak
 
 # Supervisor config
 COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
