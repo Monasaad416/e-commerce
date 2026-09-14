@@ -200,4 +200,20 @@ class OrderController extends Controller
             ], 500);
         }
     }
+
+    public function show(Order $order)
+    {
+        $order = Order::findOrFail($order);
+        if (!$order) {
+            return response()->json([
+                'success' => false,
+                'message' => __('front.order_not_found'),
+                'error_code' => 'ORDER_NOT_FOUND',
+            ], 404);
+        }
+        return response()->json([
+            'success' => true,
+                'data' => new OrderResource($order),
+            ]);
+    }
 }
