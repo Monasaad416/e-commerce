@@ -23,10 +23,10 @@ class OrderController extends Controller
             ->latest()
             ->paginate(10);
 
-        return response()->json([
-            'success' => true,
-            'data' => OrderResource::collection($orders),
-        ]);
+        return OrderResource::collection($orders)
+            ->additional([
+                'success' => true,
+            ]);
     }
 
     public function store(Request $request)
@@ -199,8 +199,10 @@ class OrderController extends Controller
         }
     }
 
-    public function show(int $orderId, Request $request)
+    public function show(Request $request)
     {
+        $orderId = (int) $request->route('orderId');
+
         $order = Order::where('id', $orderId)
             ->where('user_id', $request->user()->id)
             ->with(['items.product'])
