@@ -24,4 +24,9 @@ return [
     'payment_failed' => 'لم يكتمل الدفع. يمكنك المحاولة مرة أخرى من السلة.',
     'payment_verification_failed' => 'تعذر التحقق من الدفع مع Stripe الآن.',
     'payment_session_mismatch' => 'جلسة الدفع لا تطابق هذا الطلب.',
+    'wishlist_retrieved_successfully' => 'تم جلب قائمة الأمنيات بنجاح',
+    'wishlist_item_added_successfully' => 'تمت إضافة المنتج إلى قائمة الأمنيات',
+    'wishlist_item_already_exists' => 'المنتج موجود بالفعل في قائمة الأمنيات',
+    'wishlist_item_removed_successfully' => 'تمت إزالة المنتج من قائمة الأمنيات',
+    'wishlist_item_not_found' => 'عنصر قائمة الأمنيات غير موجود',
 ];

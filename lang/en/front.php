@@ -24,4 +24,9 @@ return [
     'payment_failed' => 'Payment was not completed. You can try again from your cart.',
     'payment_verification_failed' => 'Unable to verify payment with Stripe right now.',
     'payment_session_mismatch' => 'Payment session does not match this order.',
+    'wishlist_retrieved_successfully' => 'Wishlist retrieved successfully',
+    'wishlist_item_added_successfully' => 'Product added to wishlist',
+    'wishlist_item_already_exists' => 'Product is already in your wishlist',
+    'wishlist_item_removed_successfully' => 'Product removed from wishlist',
+    'wishlist_item_not_found' => 'Wishlist item not found',
 ];

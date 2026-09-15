@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\V1\OrderController;
 use App\Http\Controllers\Api\V1\PageContentController;
 use App\Http\Controllers\Api\V1\ProductController;
 use App\Http\Controllers\Api\V1\StripeWebhookController;
+use App\Http\Controllers\Api\V1\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 // Stripe webhooks (no auth, no locale) — configure in Stripe Dashboard / Stripe CLI
@@ -36,11 +37,18 @@ Route::group(['prefix' => 'v1/{locale?}', 'middleware' => 'setAppLocale'], funct
         Route::post('/cart/merge', [CartController::class, 'merge']);
         Route::post('/logout', [LoginController::class, 'logout']);
 
+        // Wishlist (auth required)
+        Route::get('/wishlist', [WishlistController::class, 'index']);
+        Route::post('/wishlist/add', [WishlistController::class, 'store']);
+        Route::delete('/wishlist/remove-item/{wishlist_item_id}', [WishlistController::class, 'removeItem'])
+            ->whereNumber('wishlist_item_id');
+        Route::delete('/wishlist/remove-product/{product_id}', [WishlistController::class, 'removeByProduct'])
+            ->whereNumber('product_id');
 
         // Orders
         Route::post('/create-order', [OrderController::class, 'store']);
         Route::get('/orders', [OrderController::class, 'index']);
-
+        Route::get('/orders/{orderId}', [OrderController::class, 'show'])->whereNumber('orderId');
         // Checkout
         Route::match(['get', 'post'], '/orders/{order}/checkout', [
             CheckoutController::class,

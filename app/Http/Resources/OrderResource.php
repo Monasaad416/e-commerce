@@ -2,16 +2,14 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class OrderResource extends JsonResource
 {
-
     public function toArray(Request $request): array
     {
-        return  [
+        return [
             'id' => $this->id,
             'user_id' => $this->user_id,
             'address' => $this->address,
@@ -23,7 +21,8 @@ class OrderResource extends JsonResource
             'payment_status' => $this->payment_status,
             'shipping_status' => $this->shipping_status,
             'notes' => $this->notes,
+            'created_at' => $this->created_at?->toIso8601String(),
+            'items' => OrderItemResource::collection($this->whenLoaded('items')),
         ];
     }
-
 }
