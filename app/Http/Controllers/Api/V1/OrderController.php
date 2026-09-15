@@ -178,7 +178,10 @@ class OrderController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => __('front.order_created_successfully'),
-                'data' => new OrderResource($order),
+                'data' => [
+                    'order_id' => $order->id,
+                    'order' => new OrderResource($order),
+                ],
             ]);
 
         } catch (Throwable $e) {
